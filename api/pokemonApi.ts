@@ -17,3 +17,19 @@ export async function fetchPokemonDetail(name: string) {
   }
   return res.json();
 }
+
+export async function getPokemonDetailType(
+  url: string,
+): Promise<{ types: string[] }> {
+  const res = await fetch(url);
+  if (!res.ok) {
+    return { types: [] };
+  }
+
+  const data = await res.json();
+  const types = data.types.map(
+    (typeInfo: { type: { name: string } }) => typeInfo.type.name,
+  );
+
+  return { types };
+}

@@ -1,4 +1,5 @@
-import { fetchPokemonList } from "@/api/pokemonApi";
+import { fetchPokemonList, getPokemonDetailType } from "@/api/pokemonApi";
+import { PokemonListItem } from "@/types/pokemon";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export function usePokemonList() {
@@ -7,18 +8,37 @@ export function usePokemonList() {
   const [offset, setOffset] = useState(0);
   const hasMounted = useRef(false);
 
+  async function processPokemonData(
+    pokemonList: PokemonListItem[],
+  ): Promise<PokemonListItem[]> {
+    return Promise.all(
+      pokemonList.map(async (pokemon) => {
+        const id = parseInt(pokemon.url.split("/").slice(-2, -1)[0]);
+        const details = await getPokemonDetailType(pokemon.url);
+
+        return {
+          ...pokemon,
+          id,
+          types: details.types,
+        };
+      }),
+    );
+  }
+
   const loadMore = useCallback(async () => {
     if (loading) return;
 
     setLoading(true);
     try {
       const res = await fetchPokemonList(offset);
-      setData((prev) => [...prev, ...res.results]);
+      const processedResults = await processPokemonData(res.results);
+      console.log(processedResults, "processedResults");
+      setData((prev) => [...prev, ...processedResults]);
       setOffset((prev) => prev + 20);
     } finally {
       setLoading(false);
     }
-  }, [offset, loading]);
+  }, [loading, offset]);
 
   useEffect(() => {
     loadMore();
