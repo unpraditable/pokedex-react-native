@@ -19,8 +19,12 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="pokedex" options={{ title: "Pokedex" }} />
+        <Stack.Screen
+          name="index"
+          options={{
+            title: "Pokédex",
+          }}
+        />
         <Stack.Screen name="pokemon/[name]" options={{ title: "Detail" }} />
       </Stack>
       <StatusBar style="auto" />
