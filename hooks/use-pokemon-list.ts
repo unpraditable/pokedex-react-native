@@ -32,7 +32,6 @@ export function usePokemonList() {
     try {
       const res = await fetchPokemonList(offset);
       const processedResults = await processPokemonData(res.results);
-      console.log(processedResults, "processedResults");
       setData((prev) => [...prev, ...processedResults]);
       setOffset((prev) => prev + 20);
     } finally {

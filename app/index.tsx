@@ -15,6 +15,12 @@ export default function PokedexScreen() {
       onEndReachedThreshold={0.5}
       numColumns={2}
       ListFooterComponent={loading ? <ActivityIndicator /> : null}
+      contentContainerStyle={{
+        paddingHorizontal: 12,
+        paddingTop: 12,
+        paddingBottom: 24,
+        backgroundColor: "#111",
+      }}
     />
   );
 }

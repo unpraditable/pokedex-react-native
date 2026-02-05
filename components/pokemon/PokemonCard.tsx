@@ -1,21 +1,32 @@
 import { POKEMON_TYPE_COLOR } from "@/constants/pokemonTypeColor";
 import { PokemonListItem } from "@/types/pokemon";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { Image, StyleSheet, Text, View } from "react-native";
 
 export default function PokemonCard({ pokemon }: { pokemon: PokemonListItem }) {
-  console.log(pokemon, "pokemon");
+  const colorTypes = pokemon.types
+    .map((type) => POKEMON_TYPE_COLOR[type])
+    .filter(Boolean);
+
+  const gradientColors =
+    colorTypes.length >= 2
+      ? (colorTypes as [string, string, ...string[]])
+      : ([colorTypes[0] ?? "#777", colorTypes[0] ?? "#777"] as [
+          string,
+          string,
+        ]);
+
   return (
-    <Pressable
-      style={[
-        styles.card,
-        { backgroundColor: POKEMON_TYPE_COLOR[pokemon.types[0]] },
-      ]}
+    <LinearGradient
+      colors={gradientColors}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={styles.card}
     >
       <View style={styles.header}>
         <Text style={styles.name}>{pokemon.name}</Text>
         <Text style={styles.id}>#{pokemon.id.toString().padStart(3, "0")}</Text>
       </View>
-
       <View style={styles.typeContainer}>
         {pokemon.types.map((type: any) => (
           <View key={type} style={styles.typeBadge}>
@@ -31,7 +42,7 @@ export default function PokemonCard({ pokemon }: { pokemon: PokemonListItem }) {
         style={styles.image}
         resizeMode="contain"
       />
-    </Pressable>
+    </LinearGradient>
   );
 }
 
