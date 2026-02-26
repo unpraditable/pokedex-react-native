@@ -9,12 +9,14 @@ export default function AboutTab({ pokemon, species }: any) {
     <View style={styles.card}>
       <Text style={styles.text}>{flavor}</Text>
 
-      <Text>Height: {pokemon.height / 10} m</Text>
-      <Text>Weight: {pokemon.weight / 10} kg</Text>
+      <Text style={styles.text}>Height: {pokemon.height / 10} m</Text>
+      <Text style={styles.text}>Weight: {pokemon.weight / 10} kg</Text>
 
-      <Text style={{ marginTop: 8 }}>Abilities:</Text>
+      <Text style={styles.text}>Abilities:</Text>
       {pokemon.abilities.map((a: any) => (
-        <Text key={a.ability.name}>• {a.ability.name}</Text>
+        <Text style={styles.text} key={a.ability.name}>
+          • {a.ability.name}
+        </Text>
       ))}
     </View>
   );
@@ -24,8 +26,7 @@ const styles = StyleSheet.create({
   card: {
     margin: 16,
     padding: 16,
-    backgroundColor: "#fff",
     borderRadius: 16,
   },
-  text: { marginBottom: 12 },
+  text: { color: "white", marginBottom: 12 },
 });

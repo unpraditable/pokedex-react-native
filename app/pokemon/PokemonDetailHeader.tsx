@@ -1,10 +1,16 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { POKEMON_TYPE_COLOR } from "@/constants/pokemonTypeColor";
+import { Image, StyleSheet, Text, View } from "react-native";
 
 export default function PokemoDetailHeader({ pokemon }: any) {
-  const mainType = pokemon.types[0].type.name;
+  const colorTypes = pokemon.types.map(
+    (pokemonType: { type: { name: string } }) =>
+      POKEMON_TYPE_COLOR[pokemonType.type.name],
+  );
+
+  console.log(colorTypes, "colorTypes");
 
   return (
-    <View style={[styles.container, { backgroundColor: typeColor[mainType] }]}>
+    <View style={[styles.container, { backgroundColor: colorTypes[0] }]}>
       <Text style={styles.name}>{pokemon.name}</Text>
       <Text style={styles.id}>#{pokemon.id.toString().padStart(3, "0")}</Text>
 
@@ -25,13 +31,6 @@ export default function PokemoDetailHeader({ pokemon }: any) {
     </View>
   );
 }
-
-const typeColor: Record<string, string> = {
-  grass: "#7AC74C",
-  fire: "#EE8130",
-  water: "#6390F0",
-  bug: "#A6B91A",
-};
 
 const styles = StyleSheet.create({
   container: { padding: 20, height: 280 },

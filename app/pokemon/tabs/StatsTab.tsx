@@ -29,15 +29,13 @@ const styles = StyleSheet.create({
   card: {
     margin: 16,
     padding: 16,
-    backgroundColor: "#fff",
     borderRadius: 16,
   },
-  row: { marginBottom: 12 },
-  label: { fontWeight: "600" },
-  value: { position: "absolute", left: 100 },
+  row: { color: "white", marginBottom: 12 },
+  label: { color: "white", fontWeight: "600" },
+  value: { color: "white", position: "absolute", left: 100 },
   bar: {
     height: 8,
-    backgroundColor: "#eee",
     borderRadius: 8,
     marginTop: 4,
   },
